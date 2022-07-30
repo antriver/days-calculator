@@ -11,30 +11,29 @@ require_once __DIR__.'/vendor/autoload.php';
 
 date_default_timezone_set('Etc/Utc');
 
-$entries = [
-    ['2021-09-23', '2021-12-13'],
-    ['2022-01-07', '2022-01-11'],
-    ['2022-03-08', '2022-03-10'],
-    ['2022-03-27', '2022-04-03'],
-    ['2022-04-26', '2022-05-14'],
-    ['2022-06-02', '2022-06-08'],
-    ['2022-07-20', '2022-07-26'],
-];
-
 $windowSize = 180;
 
-// No more options to change below here.
+// Simulate GET params to test
+// $_GET['entries'] = '2021-09-23,2021-12-13,2022-01-07,2022-01-11,2022-03-08,2022-03-10,2022-03-27,2022-04-03,2022-04-26,2022-05-14,2022-06-02,2022-06-08,2022-07-20,2022-07-26';
+
+if (empty($_GET['entries'])) {
+    die('A string of entries must be provided.');
+}
 
 /** @var Period[] $entryPeriods */
-$entryPeriods = array_map(
-    function (array $row) {
-        return Spatie\Period\Period::make(
-            new DateTimeImmutable($row[0]),
-            new DateTimeImmutable($row[1]),
+$entryPeriods = [];
+$lastEntryDate = null;
+foreach (explode(',', $_GET['entries']) as $entryDate) {
+    if ($lastEntryDate === null) {
+        $lastEntryDate = $entryDate;
+    } else {
+        $entryPeriods[] = Spatie\Period\Period::make(
+            new DateTimeImmutable($lastEntryDate),
+            new DateTimeImmutable($entryDate),
         );
-    },
-    $entries
-);
+        $lastEntryDate = null;
+    }
+}
 
 $adjustedWindowSize = $windowSize - 1;
 
