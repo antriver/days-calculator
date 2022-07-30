@@ -4,30 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15697f923d9719f5d03c5abaaa68a6f1",
+    "content-hash": "cf5391bf2435bb9839c6fc610317518d",
     "packages": [
         {
             "name": "spatie/period",
-            "version": "2.3.3",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/period.git",
-                "reference": "e9b7245e290bfcdf7ac4fab81fe70106c768fd9f"
+                "reference": "81725202ab368ec3fb9e724377f7ffd883311ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/period/zipball/e9b7245e290bfcdf7ac4fab81fe70106c768fd9f",
-                "reference": "e9b7245e290bfcdf7ac4fab81fe70106c768fd9f",
+                "url": "https://api.github.com/repos/spatie/period/zipball/81725202ab368ec3fb9e724377f7ffd883311ea7",
+                "reference": "81725202ab368ec3fb9e724377f7ffd883311ea7",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "larapack/dd": "^1.1",
-                "nesbot/carbon": "^2.54",
-                "phpunit/phpunit": "^9.5",
-                "spatie/ray": "^1.31"
+                "larapack/dd": "^1.0",
+                "nesbot/carbon": "^2.40",
+                "phpunit/phpunit": "^8.0|^9.0"
             },
             "type": "library",
             "autoload": {
@@ -55,9 +54,9 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/period/issues",
-                "source": "https://github.com/spatie/period/tree/2.3.3"
+                "source": "https://github.com/spatie/period/tree/1.6.1"
             },
-            "time": "2022-03-03T10:56:38+00:00"
+            "time": "2021-12-13T10:16:20+00:00"
         }
     ],
     "packages-dev": [

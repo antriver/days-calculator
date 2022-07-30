@@ -20,7 +20,7 @@ class Utils
             function (Period $entryPeriod) use ($period) {
                 $overlapPeriod = $period->overlap($entryPeriod);
 
-                return $overlapPeriod ? $overlapPeriod->length() : 0;
+                return count($overlapPeriod) > 0 ? $overlapPeriod[0]->length() : 0;
             },
             $entryPeriods
         );

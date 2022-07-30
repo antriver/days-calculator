@@ -25,6 +25,7 @@ $windowSize = 180;
 
 // No more options to change below here.
 
+/** @var Period[] $entryPeriods */
 $entryPeriods = array_map(
     function (array $row) {
         return Spatie\Period\Period::make(
@@ -40,9 +41,9 @@ $adjustedWindowSize = $windowSize - 1;
 $firstPeriod = $entryPeriods[0];
 $lastPeriod = $entryPeriods[count($entryPeriods) - 1];
 
-$startDate = $firstPeriod->start();
+$startDate = $firstPeriod->getStart();
 $endDate = max(
-    $lastPeriod->end()->modify("+{$adjustedWindowSize} days"),
+    $lastPeriod->getEnd()->modify("+{$adjustedWindowSize} days"),
     (new DateTimeImmutable('midnight today'))->modify("+{$adjustedWindowSize} days")
 );
 
