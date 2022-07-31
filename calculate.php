@@ -5,6 +5,7 @@
  * of the "entry" windows were in the 180 days prior to that date.
  */
 
+use Antriver\DaysCalculator\Utils;
 use Spatie\Period\Period;
 
 require_once __DIR__.'/vendor/autoload.php';
@@ -13,8 +14,10 @@ date_default_timezone_set('Etc/Utc');
 
 $windowSize = 180;
 
-// Simulate GET params to test
-// $_GET['entries'] = '2021-09-23,2021-12-13,2022-01-07,2022-01-11,2022-03-08,2022-03-10,2022-03-27,2022-04-03,2022-04-26,2022-05-14,2022-06-02,2022-06-08,2022-07-20,2022-07-26';
+if (php_sapi_name() == "cli") {
+    // Simulate GET params to test
+    $_GET['entries'] = '2021-09-23,2021-12-13,2022-01-07,2022-01-11,2022-03-08,2022-03-10,2022-03-27,2022-04-03,2022-04-26,2022-05-14,2022-06-02,2022-06-08,2022-07-20,2022-07-26';
+}
 
 if (empty($_GET['entries'])) {
     die('A string of entries must be provided.');
@@ -59,10 +62,15 @@ while ($currentDate <= $endDate) {
     );
 
     $daysInPeriod = array_sum(
-        \Antriver\DaysCalculator\Utils::calculateDaysInPeriod(
+        Utils::calculateDaysInPeriod(
             $currentPeriod,
             $entryPeriods
         )
+    );
+
+    $currentDateIsInAnEntryPeriod = Utils::isDaysInAnyPeriod(
+        $currentDate,
+        $entryPeriods
     );
 
     fputcsv(
@@ -70,6 +78,7 @@ while ($currentDate <= $endDate) {
         [
             $currentDate->format('Y-m-d'),
             $daysInPeriod,
+            $currentDateIsInAnEntryPeriod ? 1 : 0,
         ]
     );
 

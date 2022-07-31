@@ -2,6 +2,7 @@
 
 namespace Antriver\DaysCalculator;
 
+use DateTimeInterface;
 use Spatie\Period\Period;
 
 class Utils
@@ -24,5 +25,24 @@ class Utils
             },
             $entryPeriods
         );
+    }
+
+    /**
+     * @param DateTimeInterface $date
+     * @param Period[] $entryPeriods
+     *
+     * @return bool
+     */
+    public static function isDaysInAnyPeriod(
+        DateTimeInterface $date,
+        array $entryPeriods
+    ): bool {
+        foreach ($entryPeriods as $entryPeriod) {
+            if ($entryPeriod->contains($date)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

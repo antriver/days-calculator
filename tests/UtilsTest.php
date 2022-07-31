@@ -1,11 +1,15 @@
 <?php
 
+use Antriver\DaysCalculator\Utils;
+
 class UtilsTest extends \PHPUnit\Framework\TestCase
 {
     private $testEntryPeriods;
 
     protected function setUp(): void
     {
+        date_default_timezone_set('Etc/Utc');
+
         parent::setUp();
 
         $entries = [
@@ -36,7 +40,7 @@ class UtilsTest extends \PHPUnit\Framework\TestCase
             new DateTimeImmutable('2022-07-30')
         );
 
-        $result = \Antriver\DaysCalculator\Utils::calculateDaysInPeriod(
+        $result = Utils::calculateDaysInPeriod(
             $testPeriod,
             $this->testEntryPeriods
         );
@@ -49,9 +53,33 @@ class UtilsTest extends \PHPUnit\Framework\TestCase
                 8,
                 19,
                 7,
-                7
+                7,
             ],
             $result
+        );
+    }
+
+    public function testIsDateInAnyPeriod()
+    {
+        $this->assertTrue(
+            Utils::isDaysInAnyPeriod(
+                new DateTime('2021-10-01'),
+                $this->testEntryPeriods
+            )
+        );
+
+        $this->assertTrue(
+            Utils::isDaysInAnyPeriod(
+                new DateTime('2022-07-26'),
+                $this->testEntryPeriods
+            )
+        );
+
+        $this->assertFalse(
+            Utils::isDaysInAnyPeriod(
+                new DateTime('2022-07-27'),
+                $this->testEntryPeriods
+            )
         );
     }
 }
