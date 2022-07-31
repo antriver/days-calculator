@@ -1,6 +1,7 @@
 <?php
 
 use Antriver\DaysCalculator\Utils;
+use Spatie\Period\Period;
 
 class UtilsTest extends \PHPUnit\Framework\TestCase
 {
@@ -8,8 +9,6 @@ class UtilsTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        date_default_timezone_set('Etc/Utc');
-
         parent::setUp();
 
         $entries = [
@@ -31,6 +30,21 @@ class UtilsTest extends \PHPUnit\Framework\TestCase
             },
             $entries
         );
+    }
+
+    public function testCreatePeriodsFromCommaSeparatedDates()
+    {
+        $string = '2021-09-23,2021-12-13,2022-01-07,2022-01-11';
+
+        $result = Utils::createPeriodsFromCommaSeparatedDates($string);
+
+        $this->assertCount(2, $result);
+        $this->assertContainsOnlyInstancesOf(Period::class, $result);
+
+        $this->assertSame('2021-09-23', $result[0]->getStart()->format('Y-m-d'));
+        $this->assertSame('2021-12-13', $result[0]->getEnd()->format('Y-m-d'));
+        $this->assertSame('2022-01-07', $result[1]->getStart()->format('Y-m-d'));
+        $this->assertSame('2022-01-11', $result[1]->getEnd()->format('Y-m-d'));
     }
 
     public function testCalculateDaysInPeriod()
