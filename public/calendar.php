@@ -16,7 +16,7 @@ function formatDateForCalendar(DateTimeInterface $date): string
 
     $str = ' '.$date->format('j');
     if (Utils::isDateInAnyPeriod($date, $entryPeriods)) {
-        $str .= '.';
+        $str .= '*';
     } else {
         $str .= ' ';
     }
