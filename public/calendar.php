@@ -23,7 +23,7 @@ $weekdays = [
 $output = fopen("php://output", "a");
 
 $result = [
-    $weekdays
+    array_merge([''], $weekdays),
 ];
 
 $currentMonth = null;
