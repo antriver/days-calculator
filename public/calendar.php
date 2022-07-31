@@ -10,6 +10,18 @@ $range = Utils::calculateDesiredOutputRange($entryPeriods);
 $startDate = $range->getStart();
 $endDate = $range->getEnd();
 
+function formatDateForCalendar(DateTimeInterface $date): string
+{
+    global $entryPeriods;
+
+    $str = $date->format('j');
+    if (Utils::isDateInAnyPeriod($date, $entryPeriods)) {
+        $str .= '.';
+    }
+
+    return $str;
+}
+
 $weekdays = [
     'Mon',
     'Tue',
@@ -46,8 +58,7 @@ while ($currentDate <= $endDate) {
     }
 
     // Add current day to week.
-    // $currentWeek[$dayOfWeek - 1] = $currentDate->format('j');
-    $currentWeek[$dayOfWeek] = $currentDate->format('Y-m-d');
+    $currentWeek[$dayOfWeek - 1] = formatDateForCalendar($currentDate);
 
     if ($dayOfWeek === 7) {
         ksort($currentWeek);

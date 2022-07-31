@@ -39,7 +39,7 @@ while ($currentDate <= $endDate) {
         )
     );
 
-    $currentDateIsInAnEntryPeriod = Utils::isDaysInAnyPeriod(
+    $currentDateIsInAnEntryPeriod = Utils::isDateInAnyPeriod(
         $currentDate,
         $entryPeriods
     );

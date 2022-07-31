@@ -76,21 +76,21 @@ class UtilsTest extends \PHPUnit\Framework\TestCase
     public function testIsDateInAnyPeriod()
     {
         $this->assertTrue(
-            Utils::isDaysInAnyPeriod(
+            Utils::isDateInAnyPeriod(
                 new DateTime('2021-10-01'),
                 $this->testEntryPeriods
             )
         );
 
         $this->assertTrue(
-            Utils::isDaysInAnyPeriod(
+            Utils::isDateInAnyPeriod(
                 new DateTime('2022-07-26'),
                 $this->testEntryPeriods
             )
         );
 
         $this->assertFalse(
-            Utils::isDaysInAnyPeriod(
+            Utils::isDateInAnyPeriod(
                 new DateTime('2022-07-27'),
                 $this->testEntryPeriods
             )

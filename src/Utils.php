@@ -84,7 +84,7 @@ class Utils
      *
      * @return bool
      */
-    public static function isDaysInAnyPeriod(
+    public static function isDateInAnyPeriod(
         DateTimeInterface $date,
         array $entryPeriods
     ): bool {
