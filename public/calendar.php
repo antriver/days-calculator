@@ -14,9 +14,11 @@ function formatDateForCalendar(DateTimeInterface $date): string
 {
     global $entryPeriods;
 
-    $str = $date->format('j');
+    $str = ' '.$date->format('j');
     if (Utils::isDateInAnyPeriod($date, $entryPeriods)) {
         $str .= '.';
+    } else {
+        $str .= ' ';
     }
 
     return $str;
@@ -58,7 +60,7 @@ while ($currentDate <= $endDate) {
     }
 
     // Add current day to week.
-    $currentWeek[$dayOfWeek - 1] = formatDateForCalendar($currentDate);
+    $currentWeek[$dayOfWeek] = formatDateForCalendar($currentDate);
 
     if ($dayOfWeek === 7) {
         ksort($currentWeek);
@@ -67,12 +69,14 @@ while ($currentDate <= $endDate) {
         $result[] = $currentWeek;
         // Start a new week.
         $currentWeek = [
-            ''
+            '',
         ];
     }
 
     $currentDate = $currentDate->modify('+1 day');
 }
+
+// print_r($result);
 
 foreach ($result as $line) {
     fputcsv($output, $line);
